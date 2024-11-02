@@ -1,14 +1,17 @@
 import { useLoaderData, useParams } from "react-router-dom";
-import { addToStoreReadList } from "../../utility/utility";
+import { addToStoredReadList } from "../../utility/utility";
+
 
 const BookDetail = () => {
 
     // useParams ke call dile akta kore object day
     const { bookId } = useParams();
-    const id = parseInt(bookId)
 
-    const data = useLoaderData()
-    const book = data.find(book => book.bookId === id)
+    const data = useLoaderData();
+    const id = parseInt(bookId);
+    // console.log(typeof bookId, typeof id, typeof data[0].bookId);
+    
+    const book = data.find(book => book.bookId === id);
 
     const { bookId: currentBookId, image, } = book
 
@@ -22,15 +25,16 @@ const BookDetail = () => {
          * 6. if yes, do not add the book
         */
 
-        addToStoreReadList(id)
+        addToStoredReadList(id)
     }
 
+    
     return (
         <div className="my-12">
-            <h2>Book Detail: {currentBookId}</h2>
+            <h2>Book Detail: {bookId}</h2>
             <img className="w-36" src={image} alt="" />
             <div className="my-6">
-                <button onClick={() => handleMarkAsRead(id)} className="btn btn-outline mr-4 btn-accent">Mark to Read</button>
+                <button onClick={() => handleMarkAsRead(bookId)} className="btn btn-outline mr-4 btn-accent">Mark to Read</button>
                 <button className="btn btn-accent">Add to Wish List</button>
             </div>
         </div>
